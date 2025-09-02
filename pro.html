@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>عباد الرحمن</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Cairo", sans-serif;
+      background: linear-gradient(135deg, #4b91b4, #1abc9c);
+      text-align: center;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    header {
+      background: linear-gradient(to right, #2c3e50, #34495e);
+      color: white;
+      padding: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      font-style: italic;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background 0.3s ease-in-out;
+    }
+    header:hover {
+      background: linear-gradient(to right, #1abc9c, #2c3e50);
+    }
+
+    #clock {
+      margin: 30px 0;
+      font-size: 40px;
+      font-weight: bold;
+      color: #5cb322;
+      direction: ltr;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* زر القائمة */
+    .menu-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background: rgba(52, 73, 94, 0.95);
+      backdrop-filter: blur(8px);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      z-index: 2000;
+    }
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 22px;
+      color: #ecf0f1;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #1abc9c;
+      color: white;
+    }
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 30px;
+    }
+
+    /* Cards */
+    .cards-section {
+      padding: 25px 16px 50px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .cards-container {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(12, 35, 63, 0.08);
+      text-align: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card .icon {
+      font-size: 40px;
+      line-height: 1;
+      color: #1abc9c;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1f2d3d;
+    }
+    .card .small {
+      margin: 0;
+      font-size: 14px;
+      color: #586672;
+    }
+    .card-btn {
+      margin-top: 8px;
+      align-self: center;
+      padding: 9px 14px;
+      border-radius: 10px;
+      border: none;
+      background: #2c3e50;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(12, 35, 63, 0.12);
+    }
+    .card-btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.95;
+    }
+    @media (max-width: 900px) {
+      .cards-container { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .cards-container { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+    }
+
+    /* Clock container */
+    .card1 {
+      display: inline-block;
+      background: #000000;
+      border-radius: 14px;
+      padding: 20px 30px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background: linear-gradient(135deg, #1e272e, #485460);
+      color: #f5f5f5;
+    }
+    body.dark header {
+      background: linear-gradient(to right, #0f2027, #2c5364);
+    }
+    body.dark .card {
+      background: #2f3640;
+      color: #f5f6fa;
+    }
+    body.dark .card .small { color: #dcdde1; }
+
+    /* Footer */
+    footer {
+      background: #2c3e50;
+      color: #fff;
+      padding: 15px;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Scroll To Top Button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 70px;
+      left: 20px;
+      z-index: 3000;
+      background: #1abc9c;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    #scrollTopBtn:hover { background: #16a085; }
+
+    /* Dark Mode Button */
+    #darkModeToggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 3000;
+      background: #1abc9c;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    #darkModeToggle:hover { background: #16a085; }
+  </style>
+</head>
+<body vlink="color:red">
+
+  <header>
+    <span class="menu-btn" onclick="openNav()">☰</span>
+    عباد الرحمن
+  </header>
+
+  <article class="card1">
+    <div id="clock"></div>
+  </article>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="#"><i class="fa fa-home"></i> الصفحة الرئيسية</a>
+    <a href="../web/aboutus.html"><i class="fa fa-info-circle"></i> من نحن</a>
+    <a href="#"><i class="fa fa-envelope"></i> تواصل معنا</a>
+    <a href="#"><i class="fa fa-book-quran"></i> قراءة القرآن</a>
+    <a href="#"><i class="fa fa-bead"></i> التسابيح</a>
+    <a href="#"><i class="fa fa-clock"></i> مواقيت الصلاة</a>
+  </div>
+
+  <!-- Cards Section -->
+  <section class="cards-section" aria-label="أقسام الموقع" dir="rtl">
+    <div class="cards-container">
+      <article class="card" id="card-quran">
+        <div class="icon">📖</div>
+        <h3>القرآن الكريم</h3>
+        <p class="small">قراءة مصحف كاملة مع تصميم مريح للعين.</p>
+        <button class="card-btn"><a href="../القران الكريم.pdf" target="_blank" style="color:white;text-decoration:none;">افتح القراءة</a></button>
+      </article>
+
+      <article class="card" id="card-listen">
+        <div class="icon">🔊</div>
+        <h3>استماع القرآن الكريم</h3>
+        <p class="small">استمع لتلاوات متنوعة بصوت مشاهير القراء.</p>
+        <button class="card-btn">استمع الآن</button>
+      </article>
+
+      <article class="card" id="card-tasbeeh">
+        <div class="icon">🕯️</div>
+        <h3>التسابيح</h3>
+        <p class="small">عداد تسبيح إلكتروني مع تحكمات سهلة.</p>
+        <button class="card-btn">ابدأ التسبيح</button>
+      </article>
+
+      <article class="card" id="card-prayer-times">
+        <div class="icon">🕰️</div>
+        <h3>مواقيت الصلاة</h3>
+        <p class="small">عرض مواقيت اليوم مع تنبيهات (قريبًا).</p>
+        <button class="card-btn">عرض المواقيت</button>
+      </article>
+
+      <article class="card" id="card-ad3ya">
+        <div class="icon">🤲</div>
+        <h3>أدعية</h3>
+        <p class="small">مجموعة أدعية قصيرة ومناسبة لكل حالة.</p>
+        <button class="card-btn">اطّلع على الأدعية</button>
+      </article>
+
+      <article class="card" id="card-azkar">
+        <div class="icon">🌅🌙</div>
+        <h3>أذكار الصباح والمساء</h3>
+        <p class="small">أذكار مجمعة مع نسخ سهلة للقراءة يوميًا.</p>
+        <button class="card-btn">عرض الأذكار</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 عباد الرحمن - جميع الحقوق محفوظة
+  </footer>
+
+  <!-- Buttons -->
+  <button id="scrollTopBtn" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></button>
+  <button id="darkModeToggle" onclick="toggleDarkMode()"><i class="fa fa-moon"></i></button>
+
+  <script>
+    // فتح القائمة
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+    // غلق القائمة
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+    // الساعة
+    function updateClock() {
+      let now = new Date();
+      let h = String(now.getHours()).padStart(2, '0');
+      let m = String(now.getMinutes()).padStart(2, '0');
+      let s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById("clock").innerText = h + " : " + m + " : " + s;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Scroll to Top
+    window.onscroll = function() {
+      let btn = document.getElementById("scrollTopBtn");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+</body>
+</html>
+
